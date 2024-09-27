@@ -1,6 +1,12 @@
 import { useState } from "react";
 
+
+
+
 const AddCar = () => {
+
+  
+
   const [carName, SetcarName] = useState();
   const [carImageUrl, SetcarImageUrl] = useState();
   const [carType, SetcarType] = useState();
@@ -14,15 +20,45 @@ const AddCar = () => {
   const [transmissionType, SettransmissionType] = useState();
   const [penaltyAmount, SetpenaltyAmount] = useState();
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    if (
+      !carName ||
+      !carImageUrl ||
+      !carType ||
+      !carModelYear ||
+      !rentalPricePerHour ||
+      !rentalPricePerDay ||
+      !availableCars ||
+      !availableLocation ||
+      !fuelType ||
+      !noOfSeats ||
+      !transmissionType ||
+      !penaltyAmount
+    ) {
+      
+    } else {
+      // Submit the form data to the server or perform any other action
+      console.log("Form submitted successfully");
+    }
+  };
 
   return (
     <div className="flex items-center justify-center bg-gray-300">
       <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-4xl">
         <div className="flex justify-between">
-        <h2 className="text-2xl font-semibold mb-6 text-gray-800">
-          Vehicle Details
-        </h2>
-        <h2><button  className="bg-orange-400 p-2 rounded-xl" >Add Car</button></h2>
+          <h2 className="text-2xl font-semibold mb-6 text-gray-800">
+            Vehicle Details
+          </h2>
+          <h2>
+            <button
+              className="bg-orange-400 p-2 rounded-xl"
+              onClick={handleSubmit}
+            >
+              Add Car
+            </button>
+          </h2>
         </div>
         <div className="grid grid-cols-2 gap-6">
           {/* Car Name */}
@@ -153,9 +189,7 @@ const AddCar = () => {
             />
           </div>
         </div>
-        
       </div>
-      
     </div>
   );
 };

@@ -1,59 +1,109 @@
-const BookingDetails=()=>
-{
+import axios from "axios";
+import { useEffect, useState } from "react";
+import {
+  FaCarAlt,
+  FaCalendarAlt,
+  FaCheckCircle,
+  FaTimesCircle,
+  FaEdit,
+} from "react-icons/fa"; // Icon imports
 
-            const data = [
-                { name: "John Doe", car: "Toyota Camry", pickup: "2023-10-01", return: "2023-10-05", status: "Paid", action: "View" },
-                { name: "Jane Smith", car: "Honda Accord", pickup: "2023-10-02", return: "2023-10-06", status: "Pending", action: "Edit" },
-                { name: "Michael Johnson", car: "Ford Mustang", pickup: "2023-10-03", return: "2023-10-07", status: "Paid", action: "View" },
-                { name: "Emily Brown", car: "Chevrolet Malibu", pickup: "2023-10-04", return: "2023-10-08", status: "Overdue|Unpaid", action: "Pay Now" },
-                { name: "David Wilson", car: "Nissan Altima", pickup: "2023-10-05", return: "2023-10-09", status: "Paid", action: "View" },
-                { name: "Sarah White", car: "BMW 3 Series", pickup: "2023-10-06", return: "2023-10-10", status: "Pending", action: "Cancel" },
-                { name: "Kevin Lee", car: "Audi A4", pickup: "2023-10-07", return: "2023-10-11", status: "Paid", action: "View" },
-            ];
+const BookingDetails = () => {
+  const [bookings, setBookings] = useState([]);
+  const [customers, setCustomers] = useState([]);
 
-            return (
-                <div class="max-w-7xl mx-auto">
-                    <div class="bg-white shadow-md rounded-lg overflow-hidden">
-                        <table class="min-w-full bg-white">
-                            <thead class="bg-gray-50">
-                                <tr>
-                                    <th class="py-2 px-4 border-b border-gray-200 text-left text-sm font-semibold text-gray-600">Customer Name</th>
-                                    <th class="py-2 px-4 border-b border-gray-200 text-left text-sm font-semibold text-gray-600">Car Name</th>
-                                    <th class="py-2 px-4 border-b border-gray-200 text-left text-sm font-semibold text-gray-600">Pickup Date</th>
-                                    <th class="py-2 px-4 border-b border-gray-200 text-left text-sm font-semibold text-gray-600">Expected Return Date</th>
-                                    <th class="py-2 px-4 border-b border-gray-200 text-left text-sm font-semibold text-gray-600">Payment Status</th>
-                                    <th class="py-2 px-4 border-b border-gray-200 text-left text-sm font-semibold text-gray-600">Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {data.map((item, index) => (
-                                    <tr key={index}>
-                                        <td class="py-2 px-4 border-b border-gray-200 text-sm text-gray-700">{item.name}</td>
-                                        <td class="py-2 px-4 border-b border-gray-200 text-sm text-gray-700">{item.car}</td>
-                                        <td class="py-2 px-4 border-b border-gray-200 text-sm text-gray-700">{item.pickup}</td>
-                                        <td class="py-2 px-4 border-b border-gray-200 text-sm text-gray-700">{item.return}</td>
-                                        <td class="py-2 px-4 border-b border-gray-200 text-sm text-gray-700">
-                                            {item.status.split('|').map((status, i) => (
-                                                <span key={i} class={`inline-block px-2 py-1 text-xs font-semibold rounded-full ${status === 'Paid' ? 'bg-blue-100 text-blue-800' : status === 'Pending' ? 'bg-purple-100 text-purple-800' : 'bg-red-100 text-red-800'} mr-1`}>
-                                                    {status}
-                                                </span>
-                                            ))}
-                                        </td>
-                                        <td class="py-2 px-4 border-b border-gray-200 text-sm text-gray-700">
-                                            <button class="bg-blue-500 text-white px-4 py-1 rounded-full hover:bg-blue-600">{item.action}</button>
-                                        </td>
-                                    </tr>
-                                ))}
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="mt-4 text-center text-gray-500 text-sm">
-                        Made with <span class="text-blue-500">Yrsily</span>
-                    </div>
-                </div>
-            );
-        };
+  useEffect(() => {
+    const fetchBookingData = async () => {
+      try {
+        const bookingResponse = await axios.get("https://localhost:7208/api/Rented_Car");
+        const customerResponse = await axios.get("https://localhost:7208/api/Customers");
 
+        setBookings(bookingResponse.data);
+        setCustomers(customerResponse.data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchBookingData();
+  }, []);
+
+  const getCustomerName = (customerId) => {
+    const customer = customers.find((customer) => customer.Customer_Id === customerId);
+    return customer ? customer.Customer_Name : "Unknown Customer";
+  };
+
+  return (
+    <div className="max-w-5xl mx-auto px-4 py-6">
+      <h2 className="text-3xl font-extrabold mb-8 text-center text-gray-800">
+        Booking Details
+      </h2>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 overflow-y-auto h-96 scrollbar-hidden">
+        {bookings.map((booking, index) => (
+          <div
+            key={index}
+            className="bg-gradient-to-br from-white to-gray-200 rounded-xl shadow-lg transform hover:-translate-y-2 hover:shadow-2xl transition-all duration-300 ease-in-out"
+          >
+            <div className="p-6">
+              <div className="flex items-center mb-4">
+                <FaCarAlt className="text-gray-800 text-2xl mr-3" />
+                <h3 className="font-semibold text-xl text-gray-900">
+                  {getCustomerName(booking.Customer_ID)}
+                </h3>
+              </div>
+
+              <p className="text-sm text-gray-500 mb-3">
+                <FaCalendarAlt className="inline-block text-gray-400 mr-2" />
+                <strong>Car ID:</strong> {booking.Car_Id}
+              </p>
+              <p className="text-sm text-gray-500 mb-3">
+                <FaCalendarAlt className="inline-block text-gray-400 mr-2" />
+                <strong>Pickup Date:</strong> {booking.PickUp_Date}
+              </p>
+              <p className="text-sm text-gray-500 mb-3">
+                <FaCalendarAlt className="inline-block text-gray-400 mr-2" />
+                <strong>Return Date:</strong> {booking.Expected_Return_Date}
+              </p>
+
+              <div className="mt-4">
+                {String(booking.Status)
+                  .split("|")
+                  .map((status, i) => (
+                    <span
+                      key={i}
+                      className={`inline-block px-3 py-1 text-xs font-semibold rounded-full transition-colors duration-300 ${
+                        status === "Paid"
+                          ? "bg-green-200 text-green-800"
+                          : status === "Pending"
+                          ? "bg-yellow-200 text-yellow-800"
+                          : "bg-red-200 text-red-800"
+                      } mr-2 mb-2`}
+                    >
+                      {status === "Paid" ? (
+                        <FaCheckCircle className="inline-block text-green-600 mr-1" />
+                      ) : status === "Pending" ? (
+                        <FaEdit className="inline-block text-yellow-600 mr-1" />
+                      ) : (
+                        <FaTimesCircle className="inline-block text-red-600 mr-1" />
+                      )}
+                      {status}
+                    </span>
+                  ))}
+              </div>
+            </div>
+            <div className="bg-gray-100 p-4 text-center">
+              <button
+                className="w-full text-center py-2 rounded-lg font-bold text-white transform hover:scale-105 transition-transform duration-200 bg-blue-500 hover:bg-blue-600"
+              >
+                View
+              </button>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
 
 export default BookingDetails;
-   
