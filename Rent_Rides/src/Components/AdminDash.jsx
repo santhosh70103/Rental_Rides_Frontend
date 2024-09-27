@@ -4,6 +4,7 @@ import Orders from "./Orders";
 import BookingDetails from "./BookingDetails";
 import CarList from "./CarList";
 import { useParams } from "react-router-dom";
+import AddCar from "./AddCar";
 
 const AdminDash = () => {
   const [currentNavItem, setCurrentNavItem] = useState("Profile");
@@ -21,10 +22,10 @@ const AdminDash = () => {
         <AdminProfile Id={Admin_Id.Id} />
       );
       break;
-    case "Manage Cars":
-      mainContent = (
-        <CarList/>
-      );
+    case "AddCar":
+      mainContent=(
+        <AddCar/>
+      )
       break;
     case "Order":
       mainContent = (
@@ -58,7 +59,7 @@ const AdminDash = () => {
           />
           <div>
             <p className="text-sm">Welcome,</p>
-            <p className="font-bold">Admin</p>
+            <p className="font-bold">{}</p>
           </div>
         </div>
         <nav>
@@ -78,7 +79,7 @@ const AdminDash = () => {
               <a
                 href="#"
                 className="flex items-center text-gray-300 hover:text-white"
-                onClick={() => handleNavItemClick("Add Car")}
+                onClick={() => handleNavItemClick("AddCar")}
               >
                 <i className="fas fa-tachometer-alt mr-3"></i>
                 Add Car

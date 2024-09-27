@@ -91,6 +91,7 @@ const AdminProfile = (Id) => {
         setNewUsername(AdminResponse.data.Admin_Name);
         setNewEmail(AdminResponse.data.Admin_Email);
         setNewPassword(AdminResponse.data.Admin_Password);
+        setNewPhone(AdminResponse.data.Admin_PhoneNo)
         console.log(newEmail);
         console.log(newUsername);
         console.log(newPassword);
