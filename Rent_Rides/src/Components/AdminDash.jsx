@@ -3,9 +3,12 @@ import AdminProfile from "./AdminProfile";
 import Orders from "./Orders";
 import BookingDetails from "./BookingDetails";
 import CarList from "./CarList";
+import { useParams } from "react-router-dom";
 
 const AdminDash = () => {
   const [currentNavItem, setCurrentNavItem] = useState("Profile");
+  const Admin_Id=useParams()
+  
 
   const handleNavItemClick = (navItem) => {
     setCurrentNavItem(navItem);
@@ -15,7 +18,7 @@ const AdminDash = () => {
   switch (currentNavItem) {
     case "Profile":
       mainContent = (
-        <AdminProfile/>
+        <AdminProfile Id={Admin_Id.Id} />
       );
       break;
     case "Manage Cars":

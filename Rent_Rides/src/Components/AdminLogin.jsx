@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Login = () => {
 
@@ -21,11 +21,11 @@ const Login = () => {
     try {
       const loginResponse = await axios.post("https://localhost:7208/api/Admins/AdminLogin", userData);
 
-      console.log(loginResponse.data);
+      console.log(loginResponse.data.Id);
 
       
       if(loginResponse.data.flag  === true){
-        Navigate("/Admindash");
+        Navigate(`/Admindash/${loginResponse.data.Id}`);
       }
       else{
         setError("Invalid Email or Password");
@@ -57,9 +57,7 @@ const Login = () => {
         <h2 className="text-2xl font-semibold mb-4">Welcome Back</h2>
         <p className="text-sm mb-6">
           Don't have an account?{" "}
-          <a href="#" className="text-blue-500" onClick={Navigate('/AdminReg')}>
-            Create a new account now
-          </a>
+          <Link to="/AdminReg" className="text-blue-500">Create Account</Link>
           , Takes less than a minute.
         </p>
 

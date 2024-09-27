@@ -67,37 +67,73 @@
 
 // export default AdminProfile;
 
-
 // AdminProfile.jsx
-import React, { useState } from 'react';
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 
-const AdminProfile = () => {
-  const [profile, setProfile] = useState({
-    username: 'Admin',
-    email: 'admin@example.com',
-    password: '********',
-  });
-
+const AdminProfile = (Id) => {
   const [editing, setEditing] = useState(false);
-  const [newUsername, setNewUsername] = useState(profile.username);
-  const [newEmail, setNewEmail] = useState(profile.email);
-  const [newPassword, setNewPassword] = useState(profile.password);
+  const [newUsername, setNewUsername] = useState();
+  const [newEmail, setNewEmail] = useState();
+  const [newPhone, setNewPhone] = useState();
+  const [newPassword, setNewPassword] = useState();
+
+  const AdminId = parseInt(Id.Id);
+  console.log( AdminId);
+
+  useEffect(() => {
+    const fetchAdminData = async () => {
+      try {
+        const AdminResponse = await axios.get(
+          `https://localhost:7208/api/Admins/${AdminId}`
+        );
+        console.log(AdminResponse.data);
+        setNewUsername(AdminResponse.data.Admin_Name);
+        setNewEmail(AdminResponse.data.Admin_Email);
+        setNewPassword(AdminResponse.data.Admin_Password);
+        console.log(newEmail);
+        console.log(newUsername);
+        console.log(newPassword);
+      } catch (error) {
+        console.error("Error fetching admin profile:", error);
+      }
+    };
+
+    fetchAdminData();
+  }, [AdminId]);
 
   const handleEditProfile = () => {
     // Switch to editing mode
-    console.log("Hello")
+
+    console.log("Hello");
     setEditing(true);
   };
 
-  const handleSaveProfile = (event) => {
+  const handleSaveProfile = async (event) => {
     event.preventDefault();
-    // Update the profile details and exit editing mode
-    setProfile({
-      username: newUsername,
-      email: newEmail,
-      password: newPassword,
-    });
-    setEditing(false);
+
+    if (editing) {
+      const Newdata = {
+        Admin_ID: AdminId,
+        Admin_Name: newUsername,
+        Admin_Email: newEmail,
+        Admin_PhoneNo: newPhone,
+        Admin_Password: newPassword,
+        Role: "Admin",
+      };
+
+      const UpdateResponse = await axios.put(
+        "https://localhost:7208/api/Admins/UpdateById",
+        Newdata
+      );
+
+      console.log(UpdateResponse.data);
+
+      if(UpdateResponse.data.flag == true)
+      {
+        setEditing(false)
+      }
+    }
   };
 
   const handleUsernameChange = (event) => {
@@ -107,6 +143,9 @@ const AdminProfile = () => {
   const handleEmailChange = (event) => {
     setNewEmail(event.target.value);
   };
+  const handlePhoneChange = (event) => {
+    setNewPhone(event.target.value);
+  };
 
   const handlePasswordChange = (event) => {
     setNewPassword(event.target.value);
@@ -115,7 +154,7 @@ const AdminProfile = () => {
   return (
     <div className="max-w-md mx-auto p-4 pt-6">
       <h2 className="text-2xl font-bold mb-4">Profile Details</h2>
-      <form onSubmit={handleSaveProfile}>
+      <form>
         <div className="flex flex-wrap -mx-3 mb-6">
           <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
             <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
@@ -123,10 +162,12 @@ const AdminProfile = () => {
             </label>
             <input
               type="text"
-              value={editing ? newUsername : profile.username}
+              value={newUsername}
               onChange={handleUsernameChange}
               disabled={!editing}
-              className={`appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white ${editing ? 'focus:border-blue-500' : ''}`}
+              className={`appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white ${
+                editing ? "focus:border-blue-500" : ""
+              }`}
             />
           </div>
           <div className="w-full md:w-1/2 px-3">
@@ -135,13 +176,30 @@ const AdminProfile = () => {
             </label>
             <input
               type="email"
-              value={editing ? newEmail : profile.email}
+              value={newEmail}
               onChange={handleEmailChange}
               disabled={!editing}
-              className={`appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white ${editing ? 'focus:border-blue-500' : ''}`}
+              className={`appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white ${
+                editing ? "focus:border-blue-500" : ""
+              }`}
+            />
+          </div>
+          <div className="w-full md:w-1/2 px-3">
+            <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+              phoneNo
+            </label>
+            <input
+              type="text"
+              value={newPhone}
+              onChange={handlePhoneChange}
+              disabled={!editing}
+              className={`appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white ${
+                editing ? "focus:border-blue-500" : ""
+              }`}
             />
           </div>
         </div>
+
         <div className="flex flex-wrap -mx-3 mb-6">
           <div className="w-full px-3">
             <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
@@ -149,15 +207,19 @@ const AdminProfile = () => {
             </label>
             <input
               type="password"
-              value={editing ? newPassword : profile.password}
+              value={newPassword}
+              disabled={!editing}
               onChange={handlePasswordChange}
-              className={`appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white ${editing ? 'focus:border-blue-500' : ''}`}
+              className={`appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white ${
+                editing ? "focus:border-blue-500" : ""
+              }`}
             />
           </div>
         </div>
         {editing ? (
           <button
-            type="submit"
+            type="button"
+            onClick={handleSaveProfile}
             className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
           >
             Save Profile
@@ -165,7 +227,9 @@ const AdminProfile = () => {
         ) : (
           <button
             type="button"
-            onClick={handleEditProfile}
+            onClick={() => {
+              setEditing(true);
+            }}
             className="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded"
           >
             Edit Profile

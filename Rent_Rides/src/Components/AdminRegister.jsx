@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Register = () => {
   const [fullName, setFullName] = useState("");
@@ -56,9 +56,7 @@ const Register = () => {
         <h2 className="text-2xl font-semibold mb-4">Create an Account</h2>
         <p className="text-sm mb-6">
           Already have an account?{" "}
-          <a href="#" className="text-blue-500" onClick={navigate("/AdminLogin")}>
-            Login now
-          </a>
+          <Link to="/AdminLogin" className="text-blue-500 ">Login Now</Link>
           .
         </p>
         <form className="w-full max-w-sm" onSubmit={handleRegister}>

@@ -15,7 +15,7 @@ const App = () => {
       <BrowserRouter>
       <Routes>
       <Route path='/AdminLogin' element={<Login/>}/>
-      <Route path='/Admindash' element={<AdminDash/>}/>
+      <Route path='/Admindash/:Id' element={<AdminDash/>}/>
       <Route path='/AdminReg' element={<AdminRegister />}/>
       </Routes>
       </BrowserRouter>
