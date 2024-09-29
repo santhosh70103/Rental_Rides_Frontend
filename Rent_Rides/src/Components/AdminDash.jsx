@@ -8,9 +8,8 @@ import AddCar from "./AddCar";
 
 const AdminDash = () => {
   const [currentNavItem, setCurrentNavItem] = useState("Profile");
-  const Admin_Id=useParams()
+  const { Id: Admin_Id } = useParams(); // Destructure Admin_Id from useParams
   
-
   const handleNavItemClick = (navItem) => {
     setCurrentNavItem(navItem);
   };
@@ -18,39 +17,28 @@ const AdminDash = () => {
   let mainContent;
   switch (currentNavItem) {
     case "Profile":
-      mainContent = (
-        <AdminProfile Id={Admin_Id.Id} />
-      );
+      mainContent = <AdminProfile Id={Admin_Id} />;
       break;
     case "AddCar":
-      mainContent=(
-        <AddCar/>
-      )
+      mainContent = <AddCar />;
       break;
     case "Order":
-      mainContent = (
-        <Orders/>
-      );
+      mainContent = <Orders />;
       break;
     case "Booking":
-        mainContent = (
-            <BookingDetails/>
-        );
-        break;
-
-
+      mainContent = <BookingDetails />;
+      break;
+    case "Manage car":
+      mainContent = <CarList />;
+      break;
     default:
-      mainContent = (
-        <div>
-          <h2>Default Content</h2>
-          default or profile content here
-        </div>
-      );
+      mainContent = <h2>Default Content or Profile</h2>;
   }
 
   return (
     <div className="flex h-screen">
-      <aside className="w-1/5 bg-gray-800 text-white p-4">
+      <aside className="w-1/5 bg-gray-800 text-white p-4 h-full overflow-y-auto">
+        {/* Sidebar */}
         <div className="flex items-center mb-6">
           <img
             src="https://placehold.co/50x50"
@@ -59,7 +47,7 @@ const AdminDash = () => {
           />
           <div>
             <p className="text-sm">Welcome,</p>
-            <p className="font-bold">{}</p>
+            <p className="font-bold">Admin</p>
           </div>
         </div>
         <nav>
@@ -74,14 +62,13 @@ const AdminDash = () => {
                 Profile
               </a>
             </li>
-            
             <li className="mb-4 hover:border">
               <a
                 href="#"
                 className="flex items-center text-gray-300 hover:text-white"
                 onClick={() => handleNavItemClick("AddCar")}
               >
-                <i className="fas fa-tachometer-alt mr-3"></i>
+                <i className="fas fa-plus-circle mr-3"></i>
                 Add Car
               </a>
             </li>
@@ -91,18 +78,8 @@ const AdminDash = () => {
                 className="flex items-center text-gray-300 hover:text-white"
                 onClick={() => handleNavItemClick("Manage car")}
               >
-                <i className="fas fa-tachometer-alt mr-3"></i>
+                <i className="fas fa-car mr-3"></i>
                 Manage Car
-              </a>
-            </li>
-            <li className="mb-4 hover:border">
-              <a
-                href="#"
-                className="flex items-center text-gray-300 hover:text-white"
-                onClick={() => handleNavItemClick("Manage ")}
-              >
-                <i className="fas fa-tachometer-alt mr-3"></i>
-                Manage User
               </a>
             </li>
             <li className="mb-4 hover:border">
@@ -111,7 +88,7 @@ const AdminDash = () => {
                 className="flex items-center text-gray-300 hover:text-white"
                 onClick={() => handleNavItemClick("Booking")}
               >
-                <i className="fas fa-tachometer-alt mr-3"></i>
+                <i className="fas fa-book mr-3"></i>
                 Manage Bookings
               </a>
             </li>
@@ -121,24 +98,18 @@ const AdminDash = () => {
                 className="flex items-center text-gray-300 hover:text-white"
                 onClick={() => handleNavItemClick("Order")}
               >
-                <i className="fas fa-tachometer-alt mr-3"></i>
+                <i className="fas fa-shopping-cart mr-3"></i>
                 Orders
-              </a>
-            </li>
-            <li className="mb-4 hover:border">
-              <a
-                href="#"
-                className="flex items-center text-gray-300 hover:text-white"
-                onClick={() => handleNavItemClick("Order")}
-              >
-                <i className="fas fa-tachometer-alt mr-3"></i>
-                Logout
               </a>
             </li>
           </ul>
         </nav>
       </aside>
-      <main className="flex-1 p-6">{mainContent}</main>
+
+      {/* Main content */}
+      <main className="flex-1 p-6 overflow-y-auto">
+        {mainContent}
+      </main>
     </div>
   );
 };

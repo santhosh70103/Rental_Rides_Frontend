@@ -1,26 +1,22 @@
 import { useState } from "react";
-
-
-
+import axios from "axios";
 
 const AddCar = () => {
+  const [carName, setCarName] = useState();
+  const [carImageUrl, setCarImageUrl] = useState();
+  const [carType, setCarType] = useState();
+  const [carModelYear, setCarModelYear] = useState();
+  const [rentalPricePerHour, setRentalPricePerHour] = useState();
+  const [rentalPricePerDay, setRentalPricePerDay] = useState();
+  const [availableCars, setAvailableCars] = useState();
+  const [availableLocation, setAvailableLocation] = useState();
+  const [fuelType, setFuelType] = useState();
+  const [noOfSeats, setNoOfSeats] = useState();
+  const [transmissionType, setTransmissionType] = useState();
+  const [penaltyAmount, setPenaltyAmount] = useState();
+  const [errorMessage, setErrorMessage] = useState(null);
 
-  
-
-  const [carName, SetcarName] = useState();
-  const [carImageUrl, SetcarImageUrl] = useState();
-  const [carType, SetcarType] = useState();
-  const [carModelYear, SetcarModelYear] = useState();
-  const [rentalPricePerHour, SetrentalPricePerHour] = useState();
-  const [rentalPricePerDay, SetrentalPricePerDay] = useState();
-  const [availableCars, SetavailableCars] = useState();
-  const [availableLocation, SetavailableLocation] = useState();
-  const [fuelType, SetfuelType] = useState();
-  const [noOfSeats, SetnoOfSeats] = useState();
-  const [transmissionType, SettransmissionType] = useState();
-  const [penaltyAmount, SetpenaltyAmount] = useState();
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (
@@ -37,10 +33,32 @@ const AddCar = () => {
       !transmissionType ||
       !penaltyAmount
     ) {
-      
-    } else {
-      // Submit the form data to the server or perform any other action
-      console.log("Form submitted successfully");
+      setErrorMessage("All fields are required");
+      return;
+    }
+
+    const carDetails = {
+      Car_Name: carName,
+      Car_Image: carImageUrl,
+      Car_Type: carType,
+      Car_Model_Year: carModelYear,
+      Rental_Price_PerHour: rentalPricePerHour,
+      Rental_Price_PerDay: rentalPricePerDay,
+      Available_Cars: availableCars,
+      Available_Location: availableLocation,
+      Fuel_Type: fuelType,
+      No_of_seats: noOfSeats,
+      Transmission_type: transmissionType,
+      Penalty_Amt: penaltyAmount,
+    };
+
+    try {
+      const response = await axios.post("https://localhost:7208/api/Car_Details", carDetails);
+      console.log("Car added successfully:", response.data);
+      // Reset the form or redirect if needed
+    } catch (error) {
+      console.error("Error adding car:", error);
+      setErrorMessage("Failed to add car. Please try again.");
     }
   };
 
@@ -48,18 +66,14 @@ const AddCar = () => {
     <div className="flex items-center justify-center bg-gray-300">
       <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-4xl">
         <div className="flex justify-between">
-          <h2 className="text-2xl font-semibold mb-6 text-gray-800">
-            Vehicle Details
-          </h2>
+          <h2 className="text-2xl font-semibold mb-6 text-gray-800">Vehicle Details</h2>
           <h2>
-            <button
-              className="bg-orange-400 p-2 rounded-xl"
-              onClick={handleSubmit}
-            >
+            <button className="bg-orange-400 p-2 rounded-xl" onClick={handleSubmit}>
               Add Car
             </button>
           </h2>
         </div>
+        {errorMessage && <div className="text-red-500 mb-4">{errorMessage}</div>}
         <div className="grid grid-cols-2 gap-6">
           {/* Car Name */}
           <div>
@@ -67,7 +81,7 @@ const AddCar = () => {
             <input
               type="text"
               className="mt-1 block w-full border border-gray-800 rounded-md shadow-lg"
-              onChange={(e) => SetcarName(e.target.value)}
+              onChange={(e) => setCarName(e.target.value)}
               required
             />
           </div>
@@ -78,7 +92,7 @@ const AddCar = () => {
             <input
               type="text"
               className="mt-1 block w-full border-gray-300 rounded-md shadow-sm"
-              onChange={(e) => SetcarImageUrl(e.target.value)}
+              onChange={(e) => setCarImageUrl(e.target.value)}
             />
           </div>
 
@@ -88,7 +102,7 @@ const AddCar = () => {
             <input
               type="text"
               className="mt-1 block w-full border-gray-300 rounded-md shadow-sm"
-              onChange={(e) => SetcarType(e.target.value)}
+              onChange={(e) => setCarType(e.target.value)}
             />
           </div>
 
@@ -98,7 +112,7 @@ const AddCar = () => {
             <input
               type="text"
               className="mt-1 block w-full border-gray-300 rounded-md shadow-sm"
-              onChange={(e) => SetcarModelYear(e.target.value)}
+              onChange={(e) => setCarModelYear(e.target.value)}
             />
           </div>
 
@@ -108,7 +122,7 @@ const AddCar = () => {
             <input
               type="text"
               className="mt-1 block w-full border-gray-300 rounded-md shadow-sm"
-              onChange={(e) => SetrentalPricePerHour(e.target.value)}
+              onChange={(e) => setRentalPricePerHour(e.target.value)}
             />
           </div>
 
@@ -118,7 +132,7 @@ const AddCar = () => {
             <input
               type="text"
               className="mt-1 block w-full border-gray-300 rounded-md shadow-sm"
-              onChange={(e) => SetrentalPricePerDay(e.target.value)}
+              onChange={(e) => setRentalPricePerDay(e.target.value)}
             />
           </div>
 
@@ -128,7 +142,7 @@ const AddCar = () => {
             <input
               type="number"
               className="mt-1 block w-full border-gray-300 rounded-md shadow-sm"
-              onChange={(e) => SetavailableCars(e.target.value)}
+              onChange={(e) => setAvailableCars(e.target.value)}
             />
           </div>
 
@@ -138,7 +152,7 @@ const AddCar = () => {
             <input
               type="text"
               className="mt-1 block w-full border-gray-300 rounded-md shadow-sm"
-              onChange={(e) => SetavailableLocation(e.target.value)}
+              onChange={(e) => setAvailableLocation(e.target.value)}
             />
           </div>
 
@@ -147,7 +161,7 @@ const AddCar = () => {
             <label className="block text-gray-700">Fuel Type</label>
             <select
               className="w-full"
-              onChange={(e) => SetfuelType(e.target.value)}
+              onChange={(e) => setFuelType(e.target.value)}
             >
               <option value="Electric">Electric</option>
               <option value="Petrol">Petrol</option>
@@ -162,7 +176,7 @@ const AddCar = () => {
             <input
               type="text"
               className="mt-1 block w-full border-gray-300 rounded-md shadow-sm"
-              onChange={(e) => SetnoOfSeats(e.target.value)}
+              onChange={(e) => setNoOfSeats(e.target.value)}
             />
           </div>
 
@@ -171,7 +185,7 @@ const AddCar = () => {
             <label className="block text-gray-700">Transmission Type</label>
             <select
               className="w-full"
-              onChange={(e) => SettransmissionType(e.target.value)}
+              onChange={(e) => setTransmissionType(e.target.value)}
             >
               <option value="Automatic">Automatic</option>
               <option value="Manual">Manual</option>
@@ -185,7 +199,7 @@ const AddCar = () => {
             <input
               type="text"
               className="mt-1 block w-full border-gray-300 rounded-md shadow-sm"
-              onChange={(e) => SetpenaltyAmount(e.target.value)}
+              onChange={(e) => setPenaltyAmount(e.target.value)}
             />
           </div>
         </div>
