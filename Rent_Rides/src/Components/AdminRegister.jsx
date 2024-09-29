@@ -34,7 +34,7 @@ const Register = () => {
       console.log(registerResponse.data);
 
       // Navigate to login or dashboard after successful registration
-      navigate("/AdminLogin"); // Redirect to login page after registration
+      navigate("/Login"); // Redirect to login page after registration
     } catch (e) {
       setError(e.message); // Set error message if registration fails
     }
@@ -56,7 +56,7 @@ const Register = () => {
         <h2 className="text-2xl font-semibold mb-4">Create an Account</h2>
         <p className="text-sm mb-6">
           Already have an account?{" "}
-          <Link to="/AdminLogin" className="text-blue-500 ">Login Now</Link>
+          <Link to="/Login" className="text-blue-500 ">Login Now</Link>
           .
         </p>
         <form className="w-full max-w-sm" onSubmit={handleRegister}>

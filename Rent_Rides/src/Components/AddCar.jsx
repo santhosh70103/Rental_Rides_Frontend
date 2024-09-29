@@ -53,9 +53,11 @@ const AddCar = () => {
     };
 
     try {
-      const response = await axios.post("https://localhost:7208/api/Car_Details", carDetails);
+      const response = await axios.post(
+        "https://localhost:7208/api/Car_Details",
+        carDetails
+      );
       console.log("Car added successfully:", response.data);
-      // Reset the form or redirect if needed
     } catch (error) {
       console.error("Error adding car:", error);
       setErrorMessage("Failed to add car. Please try again.");
@@ -63,24 +65,27 @@ const AddCar = () => {
   };
 
   return (
-    <div className="flex items-center justify-center bg-gray-300">
-      <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-4xl">
-        <div className="flex justify-between">
-          <h2 className="text-2xl font-semibold mb-6 text-gray-800">Vehicle Details</h2>
-          <h2>
-            <button className="bg-orange-400 p-2 rounded-xl" onClick={handleSubmit}>
-              Add Car
-            </button>
-          </h2>
+    <div className="flex items-center justify-center bg-gradient-to-r from-gray-300 to-gray-200 min-h-screen">
+      <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-4xl">
+        <div className="flex justify-between mb-6">
+          <h2 className="text-3xl font-semibold text-gray-800">Vehicle Details</h2>
+          <button
+            className="bg-gradient-to-r from-orange-500 to-yellow-400 text-white p-3 rounded-lg shadow-md hover:from-orange-600 hover:to-yellow-500 transition-all"
+            onClick={handleSubmit}
+          >
+            Add Car
+          </button>
         </div>
+
         {errorMessage && <div className="text-red-500 mb-4">{errorMessage}</div>}
+
         <div className="grid grid-cols-2 gap-6">
           {/* Car Name */}
           <div>
             <label className="block text-gray-700">Car Name</label>
             <input
               type="text"
-              className="mt-1 block w-full border border-gray-800 rounded-md shadow-lg"
+              className="mt-2 block w-full border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
               onChange={(e) => setCarName(e.target.value)}
               required
             />
@@ -91,7 +96,7 @@ const AddCar = () => {
             <label className="block text-gray-700">Enter Car Img Url</label>
             <input
               type="text"
-              className="mt-1 block w-full border-gray-300 rounded-md shadow-sm"
+              className="mt-2 block w-full border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
               onChange={(e) => setCarImageUrl(e.target.value)}
             />
           </div>
@@ -101,7 +106,7 @@ const AddCar = () => {
             <label className="block text-gray-700">Car Type</label>
             <input
               type="text"
-              className="mt-1 block w-full border-gray-300 rounded-md shadow-sm"
+              className="mt-2 block w-full border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
               onChange={(e) => setCarType(e.target.value)}
             />
           </div>
@@ -111,7 +116,7 @@ const AddCar = () => {
             <label className="block text-gray-700">Car Model Year</label>
             <input
               type="text"
-              className="mt-1 block w-full border-gray-300 rounded-md shadow-sm"
+              className="mt-2 block w-full border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
               onChange={(e) => setCarModelYear(e.target.value)}
             />
           </div>
@@ -121,7 +126,7 @@ const AddCar = () => {
             <label className="block text-gray-700">Rental Price Per Hour</label>
             <input
               type="text"
-              className="mt-1 block w-full border-gray-300 rounded-md shadow-sm"
+              className="mt-2 block w-full border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
               onChange={(e) => setRentalPricePerHour(e.target.value)}
             />
           </div>
@@ -131,7 +136,7 @@ const AddCar = () => {
             <label className="block text-gray-700">Rental Price Per Day</label>
             <input
               type="text"
-              className="mt-1 block w-full border-gray-300 rounded-md shadow-sm"
+              className="mt-2 block w-full border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
               onChange={(e) => setRentalPricePerDay(e.target.value)}
             />
           </div>
@@ -141,7 +146,7 @@ const AddCar = () => {
             <label className="block text-gray-700">Available Cars</label>
             <input
               type="number"
-              className="mt-1 block w-full border-gray-300 rounded-md shadow-sm"
+              className="mt-2 block w-full border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
               onChange={(e) => setAvailableCars(e.target.value)}
             />
           </div>
@@ -151,7 +156,7 @@ const AddCar = () => {
             <label className="block text-gray-700">Available Location</label>
             <input
               type="text"
-              className="mt-1 block w-full border-gray-300 rounded-md shadow-sm"
+              className="mt-2 block w-full border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
               onChange={(e) => setAvailableLocation(e.target.value)}
             />
           </div>
@@ -160,7 +165,7 @@ const AddCar = () => {
           <div>
             <label className="block text-gray-700">Fuel Type</label>
             <select
-              className="w-full"
+              className="mt-2 block w-full border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
               onChange={(e) => setFuelType(e.target.value)}
             >
               <option value="Electric">Electric</option>
@@ -175,7 +180,7 @@ const AddCar = () => {
             <label className="block text-gray-700">Number of Seats</label>
             <input
               type="text"
-              className="mt-1 block w-full border-gray-300 rounded-md shadow-sm"
+              className="mt-2 block w-full border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
               onChange={(e) => setNoOfSeats(e.target.value)}
             />
           </div>
@@ -184,7 +189,7 @@ const AddCar = () => {
           <div>
             <label className="block text-gray-700">Transmission Type</label>
             <select
-              className="w-full"
+              className="mt-2 block w-full border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
               onChange={(e) => setTransmissionType(e.target.value)}
             >
               <option value="Automatic">Automatic</option>
@@ -198,7 +203,7 @@ const AddCar = () => {
             <label className="block text-gray-700">Penalty Amount</label>
             <input
               type="text"
-              className="mt-1 block w-full border-gray-300 rounded-md shadow-sm"
+              className="mt-2 block w-full border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
               onChange={(e) => setPenaltyAmount(e.target.value)}
             />
           </div>
