@@ -5,6 +5,7 @@ import BookingDetails from "./BookingDetails";
 import CarList from "./CarList";
 import { useParams } from "react-router-dom";
 import AddCar from "./AddCar";
+import RentCar from "./RentCar";
 
 const AdminDash = () => {
   const [currentNavItem, setCurrentNavItem] = useState("Profile");
@@ -30,6 +31,9 @@ const AdminDash = () => {
       break;
     case "Manage car":
       mainContent = <CarList />;
+      break;
+    case "Rent Car":
+      mainContent = <RentCar/>;
       break;
     default:
       mainContent = <h2>Default Content or Profile</h2>;
@@ -102,10 +106,20 @@ const AdminDash = () => {
                 Orders
               </a>
             </li>
+            <li className=" mb-4 hover:border">
+              <a
+                href="#"
+                className="flex items-center text-gray-300 hover:text-white"
+                onClick={() => handleNavItemClick("Rent Car")}
+              >
+                <i className="fas fa-shopping-cart mr-3"></i>
+                Rent Car
+              </a>
+            </li>
           </ul>
         </nav>
       </aside>
-
+      
       {/* Main content */}
       <main className="flex-1 p-6 overflow-y-auto">
         {mainContent}

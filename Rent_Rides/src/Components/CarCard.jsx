@@ -45,7 +45,7 @@ const CarCard = ({ car }) => {
                     <div className="mt-4">
                         {renderStars(car.Review_Rating)} {/* Assuming `Review_Rating` is a number between 0 and 5 */}
                     </div>
-                    <button className="bg-blue-600 text-white px-4 py-2 rounded mt-4">Book Now</button>
+                    <button className="bg-blue-600 text-white px-4 py-2 rounded mt-4">Edit Details</button>
                 </div>
             </div>
         </div>
