@@ -13,6 +13,7 @@ const Filter = ({ onFilterChange, filters }) => {
 
     const handleSeatsChange = (event) => {
         const { value, checked } = event.target;
+        console.log(event.target)
         onFilterChange('seats', checked 
             ? [...seats, value] 
             : seats.filter((seat) => seat !== value));
@@ -26,7 +27,9 @@ const Filter = ({ onFilterChange, filters }) => {
     };
 
     const handleTransmissionChange = (event) => {
-        const { value, checked } = event.target;
+        
+        const { name, checked } = event.target;
+        
         onFilterChange('transmissionTypes', checked 
             ? [...transmissionTypes, value] 
             : transmissionTypes.filter((type) => type !== value));
@@ -102,7 +105,7 @@ const Filter = ({ onFilterChange, filters }) => {
                             <input
                                 type="checkbox"
                                 id={type}
-                                value={type}
+                                name={type}
                                 onChange={handleTransmissionChange}
                             />
                             <label htmlFor={type}>{type}</label>

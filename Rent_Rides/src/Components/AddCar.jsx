@@ -58,6 +58,10 @@ const AddCar = () => {
         carDetails
       );
       console.log("Car added successfully:", response.data);
+      if(response.data!=null)
+      {
+        alert("Car added successfully");
+      }
     } catch (error) {
       console.error("Error adding car:", error);
       setErrorMessage("Failed to add car. Please try again.");

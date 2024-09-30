@@ -25,7 +25,7 @@ const LandingPage = () => {
             <button className="text-white font-semibold px-5 py-2 hover:text-yellow-400 transition duration-300 ease-in-out hover:underline">
               Home
             </button>
-            <button className="text-white font-semibold px-5 py-2 hover:text-yellow-400 transition duration-300 ease-in-out hover:underline">
+            <button  onClick={()=>{navigate('/CustomerCarList')}} className="text-white font-semibold px-5 py-2 hover:text-yellow-400 transition duration-300 ease-in-out hover:underline">
               Cars
             </button>
             <button className="text-white font-semibold px-5 py-2 hover:text-yellow-400 transition duration-300 ease-in-out hover:underline">
