@@ -2,7 +2,7 @@ import axios from "axios";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-const Register = () => {
+const CustomerReg = () => {
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [phoneNo, SetphoneNo] = useState("");
@@ -19,22 +19,22 @@ const Register = () => {
     }
 
     const userData = {
-      Admin_Name: fullName,
-      Admin_Email: email,
-      Admin_PhoneNo: phoneNo,
-      Admin_Password: password,
-      Role: "Admin",
+      Customer_Name: fullName,
+      Customer_Email: email,
+      Customer_PhoneNo: phoneNo,
+      Customer_Password: password,
+      Role: "Customer",
     };
 
     try {
       const registerResponse = await axios.post(
-        "https://localhost:7208/api/Admins/AdminReg",
+        "https://localhost:7208/api/Customers",
         userData
       );
       console.log(registerResponse.data);
 
       // Navigate to login or dashboard after successful registration
-      navigate("/AdminLogin"); // Redirect to login page after registration
+      navigate("/CustomerLogin"); // Redirect to login page after registration
     } catch (e) {
       setError(e.message); // Set error message if registration fails
     }
@@ -56,7 +56,7 @@ const Register = () => {
         <h2 className="text-2xl font-semibold mb-4">Create an Account</h2>
         <p className="text-sm mb-6">
           Already have an account?{" "}
-          <Link to="/Login" className="text-blue-500 ">Login Now</Link>
+          <Link to="/CustomerLogin" className="text-blue-500 ">Login Now</Link>
           .
         </p>
         <form className="w-full max-w-sm" onSubmit={handleRegister}>
@@ -118,9 +118,7 @@ const Register = () => {
             Register Now
           </button>
 
-          <button className="w-full bg-white text-black border border-gray-300 p-3 rounded flex items-center justify-center">
-            <i className="fab fa-google mr-2"></i> Register with Google
-          </button>
+         
         </form>
         {error && <p className="text-red-500 mt-4">{error}</p>}{" "}
         {/* Display error if any */}
@@ -129,4 +127,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default CustomerReg;

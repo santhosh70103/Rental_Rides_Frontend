@@ -158,52 +158,52 @@ const RentCar = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 p-8">
-      <div className="container mx-auto">
-        <h2 className="text-3xl font-semibold mb-6 text-gray-800">Order Details</h2>
+    <div className="min-h-screen bg-gradient-to-r from-blue-50 to-green-50 p-8">
+  <div className="container mx-auto">
+    
 
-        {/* Email filter input */}
-        <div className="mb-6">
-          <input
-            type="text"
-            placeholder="Filter by customer email"
-            value={email}
-            onChange={handleEmailChange}
-            className="p-2 border border-gray-400 rounded w-full"
-          />
-        </div>
-
-        {/* Orders Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredOrders.length === 0 ? (
-            <p className="text-gray-600">No orders found for this customer.</p>
-          ) : (
-            filteredOrders.map((order) => (
-              <div
-                key={order.Order_Id}
-                className="bg-white p-6 rounded-lg shadow-md border border-gray-300"
-              >
-                <h3 className="text-xl font-semibold mb-2 text-gray-700">
-                  Order ID: {order.Order_Id}
-                </h3>
-                <p className="text-gray-600">
-                  Customer: {getCustomerNameById(order.Customer_ID)}
-                </p>
-                <p className="text-gray-600">Car: {getCarNameById(order.Car_Id)}</p>
-                <p className="text-gray-600">Rental ID: {order.Rental_Id}</p>
-                <p className="text-gray-600">Order Status: {getOrderStatus(order.Order_Status)}</p>
-                <p className="text-gray-600 font-bold">Total Price: ${order.Total_Price}</p>
-
-                {/* Status button based on order status */}
-                <div className="mt-4">
-                  {getStatusButton(order.Order_Status, getCustomerEmailById(order.Customer_ID), order.Order_Id)}
-                </div>
-              </div>
-            ))
-          )}
-        </div>
-      </div>
+    {/* Email filter input */}
+    <div className="mb-8">
+      <input
+        type="text"
+        placeholder="Filter by customer email"
+        value={email}
+        onChange={handleEmailChange}
+        className="p-3 border border-gray-300 rounded w-full focus:outline-none focus:ring-2 focus:ring-blue-300 transition duration-300 ease-in-out shadow-md"
+      />
     </div>
+
+    {/* Orders Grid */}
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      {filteredOrders.length === 0 ? (
+        <p className="text-gray-600 text-center col-span-3">No orders found for this customer.</p>
+      ) : (
+        filteredOrders.map((order, index) => (
+          <div
+            key={order.Order_Id}
+            className="bg-white p-6 rounded-lg shadow-xl border border-gray-200 transition-transform duration-300 ease-in-out transform hover:scale-105 hover:shadow-2xl"
+          >
+            <h3 className="text-2xl font-semibold mb-2 text-gray-800">
+              Order Number: <span className="text-blue-500">{index + 1}</span>
+            </h3>
+            <p className="text-gray-600">
+              Customer: <strong>{getCustomerNameById(order.Customer_ID)}</strong>
+            </p>
+            <p className="text-gray-600">Car: <strong>{getCarNameById(order.Car_Id)}</strong></p>
+            <p className="text-gray-600">Rental ID: <strong>{order.Rental_Id}</strong></p>
+            <p className="text-gray-600">Order Status: <strong>{getOrderStatus(order.Order_Status)}</strong></p>
+            <p className="text-gray-600 font-bold">Total Price: <span className="text-green-600">${order.Total_Price}</span></p>
+
+            {/* Status button based on order status */}
+            <div className="mt-4">
+              {getStatusButton(order.Order_Status, getCustomerEmailById(order.Customer_ID), order.Order_Id)}
+            </div>
+          </div>
+        ))
+      )}
+    </div>
+  </div>
+</div>
   );
 };
 

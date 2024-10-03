@@ -44,8 +44,13 @@ const Main = ({ filters }) => {
         ? filters.transmissionTypes.includes(car.Transmission_Type)
         : true;
         console.log(car)
+
+    const City=filters.cities.length>0
+      ? filters.cities.includes(car.Available_Location)
+      :true
+      console.log(filters.cities)
     return (
-      withinPriceRange && matchesFuelType && matchesSeats && Transmission_type
+      withinPriceRange && matchesFuelType && matchesSeats && Transmission_type  && City
     );
   });
 

@@ -132,6 +132,7 @@ const AdminProfile = (Id) => {
 
       if(UpdateResponse.data.flag == true)
       {
+        alert("profile updated succesfully !!!")
         setEditing(false)
       }
     }

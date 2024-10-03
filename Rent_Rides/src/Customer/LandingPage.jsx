@@ -2,6 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 
 const LandingPage = () => {
+  
 
     const navigate= useNavigate();
   return (
@@ -18,8 +19,8 @@ const LandingPage = () => {
       }}
     >
       {/* Header section containing the navigation bar */}
-      <header className="top-0 left-0 w-full px-8 py-4 bg-gradient-to-r from-gray-900 to-gray-700 bg-opacity-70 shadow-md z-10 fixed">
-        <div className="max-w-7xl mx-auto flex justify-between">
+      <header className="top-2 left-3 mr-5  w-full px-8 py-4 bg-gradient-to-r from-gray-900 to-gray-700 bg-opacity-70 shadow-md z-10 fixed">
+        <div className="max-w-7xl mx-auto flex justify-between ">
           {/* Navigation buttons for different sections */}
           <nav className="flex space-x-6">
             <button className="text-white font-semibold px-5 py-2 hover:text-yellow-400 transition duration-300 ease-in-out hover:underline">
@@ -28,7 +29,7 @@ const LandingPage = () => {
             <button  onClick={()=>{navigate('/CustomerCarList')}} className="text-white font-semibold px-5 py-2 hover:text-yellow-400 transition duration-300 ease-in-out hover:underline">
               Cars
             </button>
-            <button onClick={()=>{navigate(`MyOrders/${"Customer1@gmail.com"}`)}} className="text-white font-semibold px-5 py-2 hover:text-yellow-400 transition duration-300 ease-in-out hover:underline">
+            <button onClick={()=>{navigate("/MyOrders")}} className="text-white font-semibold px-5 py-2 hover:text-yellow-400 transition duration-300 ease-in-out hover:underline">
               My Orders
             </button>
             <button className="text-white font-semibold px-5 py-2 hover:text-yellow-400 transition duration-300 ease-in-out hover:underline">
@@ -36,7 +37,7 @@ const LandingPage = () => {
             </button>
           </nav>
           {/* Login/Signup button */}
-          <button onClick={()=>{navigate("/Login")}} className="bg-yellow-500 text-gray-900 font-bold px-5 py-2 rounded-lg shadow hover:bg-yellow-600 transition duration-300 ease-in-out">
+          <button onClick={()=>{navigate("/CustomerLogin")}} className="bg-yellow-500 text-gray-900 font-bold px-5 py-2 rounded-lg shadow hover:bg-yellow-600 transition duration-300 ease-in-out">
             Login / Sign Up
           </button>
         </div>

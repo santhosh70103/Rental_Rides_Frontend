@@ -1,9 +1,12 @@
 import axios from "axios";
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Payment = ({ onClose, carId, customerId, pickupDate, rentalDays }) => {
   const [loading, setLoading] = useState(false);
-
+  console.log(pickupDate)
+  const navigate = useNavigate()
+  
   const handlePayment = async () => {
     setLoading(true);
     const bookingData = {
@@ -13,11 +16,16 @@ const Payment = ({ onClose, carId, customerId, pickupDate, rentalDays }) => {
       date: pickupDate
       
     };
+    console.log(bookingData)
 
     try {
       const response = await axios.post("https://localhost:7208/api/Booking", bookingData);
-      //console.log("Booking successful", response.data);
-      console.log(bookingData)
+      if(response.data)
+      {
+        navigate('/MyOrders')
+        
+      }
+      
       // Handle successful payment and booking logic here
     } catch (error) {
       console.error("Error processing payment:", error);

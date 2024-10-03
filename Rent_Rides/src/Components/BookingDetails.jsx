@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { FaCarAlt, FaCalendarAlt, FaCheckCircle, FaTimesCircle, FaEdit } from "react-icons/fa";
+import { FaCarAlt, FaCalendarAlt, FaCheckCircle, FaTimesCircle, FaEdit, FaClosedCaptioning, FaCheckSquare } from "react-icons/fa";
 
 const BookingDetails = () => {
   const [bookings, setBookings] = useState([]);
@@ -15,6 +15,7 @@ const BookingDetails = () => {
         const customerResponse = await axios.get("https://localhost:7208/api/Customers");
 
         setBookings(bookingResponse.data);
+        console.log(bookingResponse.data)
         setCustomers(customerResponse.data);
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -34,6 +35,7 @@ const BookingDetails = () => {
       const response = await axios.get(`https://localhost:7208/api/Car_Details/${carId}`);
       setSelectedCar(response.data);
     } catch (error) {
+      
       console.error("Error fetching car details:", error);
     }
   };
@@ -110,21 +112,25 @@ const BookingDetails = () => {
                     .map((status, i) => (
                       <span
                         key={i}
-                        className={`inline-block px-3 py-1 text-xs font-semibold rounded-full mr-2 mb-2 ${status === "Paid"
+                        className={`inline-block px-3 py-1 text-xs font-semibold rounded-full mr-2 mb-2 ${status === "1"
                             ? "bg-green-200 text-green-800"
-                            : status === "Pending"
-                              ? "bg-yellow-200 text-yellow-800"
+                            : status === "5"
+                              ? "bg-red-500 text-white"
                               : "bg-red-200 text-red-800"
                           }`}
                       >
-                        {status === "Paid" ? (
-                          <FaCheckCircle className="inline-block text-green-600 mr-1" />
-                        ) : status === "Pending" ? (
-                          <FaEdit className="inline-block text-yellow-600 mr-1" />
+                        {status === "4" ? (
+                          <div>
+                            <FaCheckCircle className="inline-block text-green-600 mr-1" />Completed
+                          </div>
+                        ) : status === "5" ? (
+                          <div>
+                            <FaCheckSquare className="inline-block text-yellow-600 mr-1" />Cancelled
+                          </div>
                         ) : (
                           <FaTimesCircle className="inline-block text-red-600 mr-1" />
                         )}
-                        {status}
+                        
                       </span>
                     ))}
                 </div>

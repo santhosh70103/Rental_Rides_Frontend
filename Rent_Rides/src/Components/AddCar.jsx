@@ -58,8 +58,7 @@ const AddCar = () => {
         carDetails
       );
       console.log("Car added successfully:", response.data);
-      if(response.data!=null)
-      {
+      if (response.data != null) {
         alert("Car added successfully");
       }
     } catch (error) {
@@ -69,145 +68,187 @@ const AddCar = () => {
   };
 
   return (
-    <div className="flex items-center justify-center bg-gradient-to-r from-gray-300 to-gray-200 min-h-screen">
-      <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-4xl">
+    <div className="flex items-center justify-center bg-gradient-to-r from-blue-100 to-green-100 min-h-screen px-4">
+      <div className="bg-white p-6 rounded-lg shadow-xl w-full max-w-2xl">
         <div className="flex justify-between mb-6">
-          <h2 className="text-3xl font-semibold text-gray-800">Vehicle Details</h2>
+          <h2 className="text-2xl font-bold text-gray-700">Vehicle Details</h2>
           <button
-            className="bg-gradient-to-r from-orange-500 to-yellow-400 text-white p-3 rounded-lg shadow-md hover:from-orange-600 hover:to-yellow-500 transition-all"
+            className="bg-gradient-to-r from-green-400 to-blue-400 text-white p-2 rounded-lg shadow-md hover:from-green-500 hover:to-blue-500 transition-all"
             onClick={handleSubmit}
           >
             Add Car
           </button>
         </div>
 
-        {errorMessage && <div className="text-red-500 mb-4">{errorMessage}</div>}
+        {errorMessage && (
+          <div className="text-red-500 mb-4">{errorMessage}</div>
+        )}
 
-        <div className="grid grid-cols-2 gap-6">
-          {/* Car Name */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
-            <label className="block text-gray-700">Car Name</label>
+            <label className="block text-gray-600 font-semibold">
+              Car Name
+            </label>
             <input
               type="text"
-              className="mt-2 block w-full border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+              className="mt-2 block w-full border border-gray-300 rounded-md shadow-sm focus:border-blue-400 focus:ring-blue-400"
               onChange={(e) => setCarName(e.target.value)}
               required
             />
           </div>
 
-          {/* Car Image */}
           <div>
-            <label className="block text-gray-700">Enter Car Img Url</label>
+            <label className="block text-gray-600 font-semibold">
+              Enter Car Img Url
+            </label>
             <input
               type="text"
-              className="mt-2 block w-full border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+              className="mt-2 block w-full border border-gray-300 rounded-md shadow-sm focus:border-blue-400 focus:ring-blue-400"
               onChange={(e) => setCarImageUrl(e.target.value)}
             />
           </div>
 
-          {/* Car Type */}
           <div>
-            <label className="block text-gray-700">Car Type</label>
+            <label className="block text-gray-600 font-semibold">
+              Car Type
+            </label>
             <input
               type="text"
-              className="mt-2 block w-full border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+              className="mt-2 block w-full border border-gray-300 rounded-md shadow-sm focus:border-blue-400 focus:ring-blue-400"
               onChange={(e) => setCarType(e.target.value)}
             />
           </div>
 
-          {/* Car Model Year */}
           <div>
-            <label className="block text-gray-700">Car Model Year</label>
+            <label className="block text-gray-600 font-semibold">
+              Car Model Year
+            </label>
             <input
               type="text"
-              className="mt-2 block w-full border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+              className="mt-2 block w-full border border-gray-300 rounded-md shadow-sm focus:border-blue-400 focus:ring-blue-400"
               onChange={(e) => setCarModelYear(e.target.value)}
             />
           </div>
 
-          {/* Rental Price Per Hour */}
           <div>
-            <label className="block text-gray-700">Rental Price Per Hour</label>
+            <label className="block text-gray-600 font-semibold">
+              Rental Price Per Hour
+            </label>
             <input
               type="text"
-              className="mt-2 block w-full border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+              className="mt-2 block w-full border border-gray-300 rounded-md shadow-sm focus:border-blue-400 focus:ring-blue-400"
               onChange={(e) => setRentalPricePerHour(e.target.value)}
             />
           </div>
 
-          {/* Rental Price Per Day */}
           <div>
-            <label className="block text-gray-700">Rental Price Per Day</label>
+            <label className="block text-gray-600 font-semibold">
+              Rental Price Per Day
+            </label>
             <input
               type="text"
-              className="mt-2 block w-full border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+              className="mt-2 block w-full border border-gray-300 rounded-md shadow-sm focus:border-blue-400 focus:ring-blue-400"
               onChange={(e) => setRentalPricePerDay(e.target.value)}
             />
           </div>
 
-          {/* Available Cars */}
           <div>
-            <label className="block text-gray-700">Available Cars</label>
+            <label className="block text-gray-600 font-semibold">
+              Available Cars
+            </label>
             <input
               type="number"
-              className="mt-2 block w-full border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+              className="mt-2 block w-full border border-gray-300 rounded-md shadow-sm focus:border-blue-400 focus:ring-blue-400"
               onChange={(e) => setAvailableCars(e.target.value)}
             />
           </div>
 
-          {/* Available Location */}
           <div>
-            <label className="block text-gray-700">Available Location</label>
-            <input
-              type="text"
-              className="mt-2 block w-full border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+            <label className="block text-gray-600 font-semibold">
+              Fuel Type
+            </label>
+            <select
+              className="mt-2 block w-full border border-gray-300 rounded-md shadow-sm focus:border-blue-400 focus:ring-blue-400"
               onChange={(e) => setAvailableLocation(e.target.value)}
-            />
+            >
+              <option value="Ariyalur">Ariyalur</option>
+              <option value="Chennai">Chennai</option>
+              <option value="Coimbatore">Coimbatore</option>
+              <option value="Cuddalore">Cuddalore</option>
+              <option value="Dharmapuri">Dharmapuri</option>
+              <option value="Dindigul">Dindigul</option>
+              <option value="Erode">Erode</option>
+              <option value="Kanchipuram">Kanchipuram</option>
+              <option value="Kanyakumari">Kanyakumari</option>
+              <option value="Karur">Karur</option>
+              <option value="Krishnagiri">Krishnagiri</option>
+              <option value="Madurai">Madurai</option>
+              <option value="Nagapattinam">Nagapattinam</option>
+              <option value="Namakkal">Namakkal</option>
+              <option value="Nilgiris">Nilgiris</option>
+              <option value="Perambalur">Perambalur</option>
+              <option value="Pudukkottai">Pudukkottai</option>
+              <option value="Ramanathapuram">Ramanathapuram</option>
+              <option value="Ranipet">Ranipet</option>
+              <option value="Salem">Salem</option>
+              <option value="Sivagangai">Sivagangai</option>
+              <option value="Thanjavur">Thanjavur</option>
+              <option value="Theni">Theni</option>
+              <option value="Thoothukudi">Thoothukudi</option>
+              <option value="Tiruchirappalli">Tiruchirappalli</option>
+              <option value="Tirunelveli">Tirunelveli</option>
+              <option value="Tiruppur">Tiruppur</option>
+              <option value="Vellore">Vellore</option>
+              <option value="Viluppuram">Viluppuram</option>
+              <option value="Virudhunagar">Virudhunagar</option>
+            </select>
           </div>
 
-          {/* Fuel Type */}
           <div>
-            <label className="block text-gray-700">Fuel Type</label>
+            <label className="block text-gray-600 font-semibold">
+              Fuel Type
+            </label>
             <select
-              className="mt-2 block w-full border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+              className="mt-2 block w-full border border-gray-300 rounded-md shadow-sm focus:border-blue-400 focus:ring-blue-400"
               onChange={(e) => setFuelType(e.target.value)}
             >
               <option value="Electric">Electric</option>
               <option value="Petrol">Petrol</option>
               <option value="Diesel">Diesel</option>
-              <option value="Gas">Gas</option>
             </select>
           </div>
 
-          {/* Number of Seats */}
           <div>
-            <label className="block text-gray-700">Number of Seats</label>
+            <label className="block text-gray-600 font-semibold">
+              Number of Seats
+            </label>
             <input
               type="text"
-              className="mt-2 block w-full border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+              className="mt-2 block w-full border border-gray-300 rounded-md shadow-sm focus:border-blue-400 focus:ring-blue-400"
               onChange={(e) => setNoOfSeats(e.target.value)}
             />
           </div>
 
-          {/* Transmission Type */}
           <div>
-            <label className="block text-gray-700">Transmission Type</label>
+            <label className="block text-gray-600 font-semibold">
+              Transmission Type
+            </label>
             <select
-              className="mt-2 block w-full border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+              className="mt-2 block w-full border border-gray-300 rounded-md shadow-sm focus:border-blue-400 focus:ring-blue-400"
               onChange={(e) => setTransmissionType(e.target.value)}
             >
               <option value="Automatic">Automatic</option>
               <option value="Manual">Manual</option>
-              <option value="Hybrid">Hybrid</option>
             </select>
           </div>
 
-          {/* Penalty Amount */}
           <div>
-            <label className="block text-gray-700">Penalty Amount</label>
+            <label className="block text-gray-600 font-semibold">
+              Penalty Amount
+            </label>
             <input
               type="text"
-              className="mt-2 block w-full border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+              className="mt-2 block w-full border border-gray-300 rounded-md shadow-sm focus:border-blue-400 focus:ring-blue-400"
               onChange={(e) => setPenaltyAmount(e.target.value)}
             />
           </div>
