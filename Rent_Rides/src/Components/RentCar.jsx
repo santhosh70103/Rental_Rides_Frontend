@@ -19,6 +19,7 @@ const RentCar = () => {
         ]);
 
         setOrders(ordersResponse.data);
+        console.log(ordersResponse.data)
         setFilteredOrders(ordersResponse.data);
         setCustomers(customersResponse.data);
         setCars(carsResponse.data);

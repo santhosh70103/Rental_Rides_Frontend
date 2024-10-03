@@ -170,7 +170,13 @@ const CarDetails = () => {
 
           {/* Payment Component */}
           {isPaymentOpen && (
-            <Payment onClose={handlePaymentClose} />
+            <Payment
+            onClose={handlePaymentClose}
+            carId={parseInt(Car_Id)}          // Pass Car_Id
+            customerId={1}     // Replace with actual customer ID logic
+            pickupDate={"2024-10-03T04:12:57.592Z"}      // Pass pickupDate
+            rentalDays={5}      // Pass rentalDays
+          />
           )}
         </div>
       )}
