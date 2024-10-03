@@ -14,6 +14,7 @@ const CarList = () => {
     });
 
     const handleFilterChange = (filterName, value) => {
+        console.log(filterName,value)
         setFilters((prevFilters) => ({
             ...prevFilters,
             [filterName]: value,

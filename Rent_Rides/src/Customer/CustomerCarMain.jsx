@@ -3,6 +3,8 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import CarCard from "./CustomerCarCard";
 
+
+
 const Main = ({ filters }) => {
   const [cars, setCars] = useState([]);
   console.log(filters);
@@ -14,6 +16,8 @@ const Main = ({ filters }) => {
           "https://localhost:7208/api/GetCarWithFeeedBack"
         );
         setCars(CarDataResponse.data);
+
+        
       } catch (error) {
         console.error("Error fetching car details:", error);
       }

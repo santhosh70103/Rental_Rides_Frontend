@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import RentModal from "./RentModal";
+import Payment from "./Payment"; // Import the Payment component
 
 // Star Rating Component
 const StarRating = ({ rating }) => {
@@ -20,11 +22,12 @@ const CarDetails = () => {
   const { Car_Id } = useParams();
   const [car, setCar] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isPaymentOpen, setIsPaymentOpen] = useState(false); // State for Payment component
 
   useEffect(() => {
     const fetchCarDetails = async () => {
       try {
-        // Fetch car details from both APIs
         const carDetailsResponse = await axios.get(
           "https://localhost:7208/api/Car_Details"
         );
@@ -32,7 +35,6 @@ const CarDetails = () => {
           "https://localhost:7208/api/GetCarWithFeeedBack"
         );
 
-        // Find car by Car_Id in both responses
         const carDetails = carDetailsResponse.data.find(
           (c) => c.Car_Id == Car_Id
         );
@@ -40,7 +42,6 @@ const CarDetails = () => {
           (c) => c.Car_Id == Car_Id
         );
 
-        // Merge feedback data into carDetails
         const mergedCarDetails = {
           ...carDetails,
           Feedback: carFeedback ? carFeedback.Feedback : [],
@@ -57,6 +58,24 @@ const CarDetails = () => {
     fetchCarDetails();
   }, [Car_Id]);
 
+  const handleConfirmCarClick = () => {
+    setIsModalOpen(true); // Open RentModal instead of Payment
+  };
+
+  const handleModalClose = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleModalConfirm = ({ pickupDate, rentalDays }) => {
+    console.log("Rental confirmed:", pickupDate, rentalDays);
+    setIsModalOpen(false);
+    setIsPaymentOpen(true); // Open Payment component after confirmation
+  };
+
+  const handlePaymentClose = () => {
+    setIsPaymentOpen(false); // Close Payment component
+  };
+
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center text-gray-600">
@@ -69,9 +88,9 @@ const CarDetails = () => {
     <div className="h-screen bg-gradient-to-b from-indigo-100 to-blue-100 flex justify-center items-center py-20 px-5">
       {car && (
         <div className="flex flex-col">
-          <div className="flex items-center flex-col md:flex-row gap-10 bg-white p-5 rounded-2xl shadow-2xl transform transition duration-500  w-full max-w-6xl overflow-hidden">
+          <div className="flex items-center flex-col md:flex-row gap-10 bg-white p-5 rounded-2xl shadow-2xl transform transition duration-500 w-full max-w-6xl overflow-hidden">
             {/* Car Image */}
-            <div className="w-full o md:w-1/2 transform transition duration-500 hover:scale-105">
+            <div className="w-full md:w-1/2 transform transition duration-500 hover:scale-105">
               <img
                 src={car.Car_Image}
                 alt={car.Car_Name}
@@ -101,7 +120,7 @@ const CarDetails = () => {
                   <strong>Price Per Day:</strong> ${car.Rental_Price_PerDay}
                 </p>
                 <p className="text-gray-600 text-lg bg-teal-100 p-3 rounded-lg transition-all duration-300 hover:bg-teal-200">
-                  <strong>Pickup Location:</strong>Office Address
+                  <strong>Pickup Location:</strong> Office Address
                 </p>
               </div>
 
@@ -126,17 +145,33 @@ const CarDetails = () => {
                     </div>
                   ))
                 ) : (
-                  <p className="text-gray-600">
-                    No feedback available for this car.
-                  </p>
+                  <p className="text-gray-600">No feedback available for this car.</p>
                 )}
               </div>
 
+              {/* Confirm Car Button */}
               <div className="flex items-center">
-                <button  className="bg-blue-200 p-2 rounded-sm">Confirm Car</button>
+                <button
+                  onClick={handleConfirmCarClick}
+                  className="bg-blue-200 p-2 rounded-sm"
+                >
+                  Confirm Car
+                </button>
               </div>
             </div>
           </div>
+
+          {/* RentModal Component */}
+          <RentModal
+            isOpen={isModalOpen}
+            onClose={handleModalClose}
+            onConfirm={handleModalConfirm} // Correctly passing the function
+          />
+
+          {/* Payment Component */}
+          {isPaymentOpen && (
+            <Payment onClose={handlePaymentClose} />
+          )}
         </div>
       )}
     </div>

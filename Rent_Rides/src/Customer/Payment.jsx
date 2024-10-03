@@ -1,11 +1,10 @@
 import React from "react";
 
-const Payment = () => {
+const Payment = ({ onClose }) => {
   return (
-    <div className="flex items-center justify-center min-h-screen bg-sky-200">
-      {" "}
-      {/* Changed background color */}
-      <div className="bg-white p-8 rounded-lg shadow-lg max-w-md w-full">
+    <div className="fixed inset-0 flex items-center justify-center ">
+      <div className="bg-black opacity-50 absolute inset-0"></div> {/* Background Overlay */}
+      <div className="bg-white p-8 rounded-lg shadow-lg max-w-md w-full z-10">
         <h1 className="text-2xl font-bold mb-6">Payment Information</h1>
 
         <div className="mb-4">
@@ -48,12 +47,12 @@ const Payment = () => {
             <div className="flex-1 mr-2">
               <label
                 className="block text-sm font-medium mb-2"
-                htmlFor="expiration"
+                htmlFor="expiryDate"
               >
-                Expiration Date
+                Expiry Date
               </label>
               <input
-                id="expiration"
+                id="expiryDate"
                 type="text"
                 className="w-full border border-gray-300 p-2 rounded"
                 placeholder="MM/YY"
@@ -61,11 +60,14 @@ const Payment = () => {
               />
             </div>
             <div className="flex-1">
-              <label className="block text-sm font-medium mb-2" htmlFor="cvc">
-                CVC
+              <label
+                className="block text-sm font-medium mb-2"
+                htmlFor="cvv"
+              >
+                CVV
               </label>
               <input
-                id="cvc"
+                id="cvv"
                 type="text"
                 className="w-full border border-gray-300 p-2 rounded"
                 placeholder="123"
@@ -75,12 +77,18 @@ const Payment = () => {
           </div>
           <button
             type="submit"
-            className="w-full bg-blue-600 text-white p-2 rounded hover:bg-blue-700 transition"
+            className="bg-blue-600 text-white p-2 rounded hover:bg-blue-700 transition"
           >
             Pay Now
           </button>
         </form>
-        <p className="mt-4 text-sm text-gray-500">Secure payment processing.</p>
+
+        <button
+          onClick={onClose}
+          className="mt-4 text-red-600 hover:underline"
+        >
+          Close
+        </button>
       </div>
     </div>
   );
