@@ -43,9 +43,21 @@ const LandingPage = () => {
         </div>
       </header>
 
+      <div>
+      <section className="adventure text-center py-4">
+        <h2 className="text-3xl font-bold text-white mb-2">
+          Adventure Awaits with Rent Rides!
+        </h2>
+        <p className="text-xl text-white">
+          Explore breathtaking landscapes and vibrant city streets in style!
+        </p>
+      </section>
+      </div>
+
       {/* Central button for booking action */}
-      <div className="absolute inset-0 flex items-center justify-center z-0">
-        <button className="bg-blue-500 text-white text-2xl font-bold px-8 py-4 rounded-full hover:bg-blue-700 transition-all transform hover:scale-105 shadow-lg">
+      <div className="inset-0 flex items-center justify-center z-0">
+        <button className="bg-blue-500 text-white text-2xl font-bold px-8 py-4 rounded-full hover:bg-blue-700 transition-all transform hover:scale-105 shadow-lg"
+        onClick={()=>navigate("/CustomerCarList")}>
           Book Now
         </button>
       </div>

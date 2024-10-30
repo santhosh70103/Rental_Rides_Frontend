@@ -127,7 +127,7 @@ const AdminDash = () => {
             onClick={() => handleNavItemClick("Rent Car")}
           >
             <i className="fas fa-car mr-3 text-gray-400"></i>
-            <span className="font-medium">Rent Car</span>
+            <span className="font-medium">Rent/Return Car</span>
           </a>
         </li>
         <li>

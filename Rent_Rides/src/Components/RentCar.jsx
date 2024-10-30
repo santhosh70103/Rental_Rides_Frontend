@@ -190,8 +190,8 @@ const RentCar = () => {
               Customer: <strong>{getCustomerNameById(order.Customer_ID)}</strong>
             </p>
             <p className="text-gray-600">Car: <strong>{getCarNameById(order.Car_Id)}</strong></p>
-            <p className="text-gray-600">Rental ID: <strong>{order.Rental_Id}</strong></p>
             <p className="text-gray-600">Order Status: <strong>{getOrderStatus(order.Order_Status)}</strong></p>
+            
             <p className="text-gray-600 font-bold">Total Price: <span className="text-green-600">${order.Total_Price}</span></p>
 
             {/* Status button based on order status */}

@@ -13,6 +13,7 @@ import CarDetails from "./Customer/CarDetails.Jsx";
 import CustomerOrders from "./Customer/CustomerOrders";
 import CustomerLogin from "./Customer/CustomerLogin";
 import CustomerReg from "./Customer/CustomerReg";
+import ContactUs from "./Customer/ContactUs";
 
 //import CarCustomerList from "./Customer/CarCustomerList";
 
@@ -24,12 +25,13 @@ const App = () => {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<LandingPage/>} />
+          <Route path="/ContactUs" element={<ContactUs/>} />
           <Route path="/AdminLogin" element={<Login />}/>
           <Route path="/CustomerLogin" element={<CustomerLogin/>} />
           <Route path="/Admindash/:Id" element={<AdminDash />} />
           <Route path="/AdminReg" element={<AdminRegister />} />
           <Route path="/CustomerReg" element={<CustomerReg />} />
-
+          
           <Route path="/CustomerCarList" element={<CarList />} />
           <Route path="/Cardetails/:Car_Id" element={<CarDetails/>} />
           <Route path="/Payment" element={<Payment/>} />
